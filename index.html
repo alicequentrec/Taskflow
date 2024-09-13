@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow</title>
+    <style>
+        
+        header {
+            background-color: #365037;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        .navbar {
+            list-style: none;
+            padding: 0;
+        }
+        .navbar li {
+            display: inline;
+            margin-right: 20px;
+        }
+        .navbar li a {
+            text-decoration: none;
+            color: white;
+        }
+        .navbar li a:hover {
+            text-decoration: underline;
+        }
+
+        
+        .section {
+            display: none;
+        }
+        .active-section {
+            display: block;
+        }
+
+       
+        .projects-section {
+            padding: 20px;
+            text-align: center;
+        }
+        .projects-list {
+            list-style: none;
+            padding: 0;
+        }
+        .projects-list li {
+            margin-bottom: 10px;
+            font-size: 18px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+       
+        .columns {
+            display: flex;
+            justify-content: space-around;
+        }
+        .column {
+            width: 30%;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .column h3 {
+            text-align: center;
+            background-color: #365037;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .ticket {
+            background-color: #e0e0e0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            position: relative;
+            min-height: 150px;
+        }
+        .ticket h4 {
+            margin: 0;
+            color: #333;
+        }
+        .ticket p {
+            margin: 5px 0 0;
+            color: #555;
+        }
+        .ticket small {
+            color: #888;
+            font-size: 12px;
+        }
+        .move-buttons, .edit-delete-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+        .move-buttons button, .edit-delete-buttons button {
+            padding: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+      
+        #createTicketButton {
+            background-color: #365037;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        #createTicketButton:hover {
+            background-color: #2c4030;
+        }
+
+        #ticketForm {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+        #ticketForm h3 {
+            font-size: 22px;
+            color: #365037;
+            margin-bottom: 20px;
+        }
+        #ticketForm input, #ticketForm textarea, #ticketForm button, #ticketForm select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        #ticketForm input:focus, #ticketForm textarea:focus {
+            border-color: #365037;
+            outline: none;
+            box-shadow: 0 0 6px rgba(54, 80, 55, 0.3);
+        }
+        #ticketForm button {
+            background-color: #365037;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #ticketForm button:hover {
+            background-color: #2c4030;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .user-selection {
+            margin: 20px;
+            text-align: center;
+        }
+        .user-selection select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>  
+    <div class="logo">TaskFlow</div>    
+    <ul class="navbar">
+        <li><a href="#" id="homeButton">Accueil</a></li>
+        <li><a href="#" id="tasksButton">Mes Tâches</a></li>
+        <li><a href="#" id="historyButton">Historique</a></li>
+        <li><a href="#" id="projectsButton">Projets</a></li>
+    </ul>
+</header>
+
+
+<div class="section active-section" id="homeSection">
+    <div class="container">
+        <h2>Bienvenue sur TaskFlow</h2>
+        <p>Gérez vos tâches efficacement avec notre interface intuitive</p>
+
+       
+        <div class="user-selection">
+            <label for="userSelect">Sélectionnez l'utilisateur :</label>
+            <select id="userSelect">
+                <option value="Alice">Alice</option>
+                <option value="Arthur">Arthur</option>
+                <option value="Alexandre">Alexandre</option>
+                <option value="Camille">Camille</option>
+                <option value="Capucine">Capucine</option>
+                <option value="Jeanne">Jeanne</option>
+                <option value="Charles">Charles</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+<div class="section" id="projectsSection">
+    <div class="projects-section">
+        <h2>Projets</h2>
+        <ul class="projects-list">
+            <li>Développement Technologique</li>
+            <li>Marketing et Communication</li>
+            <li>Design et Création</li>
+            <li>Gestion de Projet et Organisation</li>
+            <li>Éducation et Formation</li>
+            <li>Finance et Administration</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section" id="historySection">
+    <div class="container">
+        <h2>Historique</h2>
+        <div id="historyTickets">
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="section" id="tasksSection">
+    <div class="container">
+        <div class="ticket-section">
+            <button id="createTicketButton">Créer un Ticket</button>
+            
+            <div id="ticketForm">
+                <h3>Créer un nouveau ticket</h3>
+                <input type="text" id="ticketTitle" placeholder="Titre du ticket">
+                <textarea id="ticketDescription" rows="4" placeholder="Description"></textarea>
+                <input type="text" id="ticketAuthor" placeholder="Nom de l'auteur">
+                <label for="ticketProject">Sélectionner un projet :</label>
+                <select id="ticketProject">
+                    <option value="Développement Technologique">Développement Technologique</option>
+                    <option value="Marketing et Communication">Marketing et Communication</option>
+                    <option value="Design et Création">Design et Création</option>
+                    <option value="Gestion de Projet et Organisation">Gestion de Projet et Organisation</option>
+                    <option value="Éducation et Formation">Éducation et Formation</option>
+                    <option value="Finance et Administration">Finance et Administration</option>
+                </select>
+                <label for="ticketAssignedTo">Attribuer à :</label>
+                <select id="ticketAssignedTo">
+                    <option value="Alice">Alice</option>
+                    <option value="Arthur">Arthur</option>
+                    <option value="Alexandre">Alexandre</option>
+                    <option value="Camille">Camille</option>
+                    <option value="Capucine">Capucine</option>
+                    <option value="Jeanne">Jeanne</option>
+                    <option value="Charles">Charles</option>
+                </select>
+                <label for="ticketDeadline">Date limite (deadline) :</label>
+                <input type="date" id="ticketDeadline">
+                <button id="submitTicket">Soumettre</button>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column" id="upcomingTasks">
+                <h3>À Faire</h3>
+            </div>
+            <div class="column" id="lateTasks">
+                <h3>En retard</h3>
+            </div>
+            <div class="column" id="completedTasks">
+                <h3>Terminés</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+ let currentUser = document.getElementById('userSelect').value;
+    let completedTickets = []; 
+
+    
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.classList.remove('active-section');
+        });
+        document.getElementById(sectionId).classList.add('active-section');
+    }
+
+    function displayHistory() {
+        const historyDiv = document.getElementById('historyTickets');
+        historyDiv.innerHTML = '';
+
+        completedTickets.forEach(ticket => {
+            const ticketDiv = document.createElement('div');
+            ticketDiv.className = 'ticket';
+
+            const ticketTitle = document.createElement('h4');
+            ticketTitle.innerText = ticket.title;
+            const ticketDescription = document.createElement('p');
+            ticketDescription.innerText = ticket.description;
+            const ticketAuthor = document.createElement('p');
+            ticketAuthor.innerText = "Créé par : " + ticket.author;
+            const ticketAssignedTo = document.createElement('p');
+            ticketAssignedTo.innerText = "Attribué à : " + ticket.assignedTo;
+            const ticketProject = document.createElement('p');
+            ticketProject.innerText = "Projet : " + ticket.project;
+
+            const completedDate = document.createElement('small');
+            completedDate.innerText = "Terminé le : " + ticket.completedDate;
+
+            
+            const status = document.createElement('small');
+            if (ticket.finishedLate) {
+                status.innerText = " Fini en retard";
+                status.style.color = "red";
+            } else {
+                status.innerText = " Fini en avance";
+                status.style.color = "green";
+            }
+
+            ticketDiv.appendChild(ticketTitle);
+            ticketDiv.appendChild(ticketDescription);
+            ticketDiv.appendChild(ticketAuthor);
+            ticketDiv.appendChild(ticketAssignedTo);
+            ticketDiv.appendChild(ticketProject);
+            ticketDiv.appendChild(completedDate);
+            ticketDiv.appendChild(status);
+
+            historyDiv.appendChild(ticketDiv);
+        });
+    }
+
+ 
+    document.getElementById('homeButton').addEventListener('click', function() {
+        showSection('homeSection');
+    });
+    document.getElementById('tasksButton').addEventListener('click', function() {
+        showSection('tasksSection');
+    });
+    document.getElementById('historyButton').addEventListener('click', function() {
+        showSection('historySection');
+        displayHistory(); 
+    });
+    document.getElementById('projectsButton').addEventListener('click', function() {
+        showSection('projectsSection');
+    });
+
+    
+    document.getElementById('createTicketButton').addEventListener('click', function() {
+        document.getElementById('ticketForm').style.display = 'block';
+        document.getElementById('ticketAuthor').value = currentUser; 
+    });
+
+   
+    document.getElementById('userSelect').addEventListener('change', function() {
+        currentUser = this.value;
+        alert("Utilisateur sélectionné : " + currentUser);
+    });
+
+    
+    function getCurrentDateTime() {
+        const date = new Date();
+        return date.toLocaleDateString() + ' à ' + date.toLocaleTimeString();
+    }
+
+    
+    function moveTicket(ticket, targetColumn) {
+        document.getElementById(targetColumn).appendChild(ticket);
+    }
+
+
+    function editTicket(ticketDiv) {
+        const title = prompt("Modifier le titre", ticketDiv.querySelector('h4').innerText);
+        const description = prompt("Modifier la description", ticketDiv.querySelector('p').innerText);
+        if (title) ticketDiv.querySelector('h4').innerText = title;
+        if (description) ticketDiv.querySelector('p').innerText = description;
+
+        const modifiedDate = ticketDiv.querySelector('.modified-date');
+        if (!modifiedDate) {
+            const newModifiedDate = document.createElement('small');
+            newModifiedDate.className = 'modified-date';
+            newModifiedDate.innerText = "Modifié le : " + getCurrentDateTime();
+            ticketDiv.appendChild(newModifiedDate);
+        } else {
+            modifiedDate.innerText = "Modifié le : " + getCurrentDateTime();
+        }
+    }
+
+    
+    function deleteTicket(ticketDiv) {
+        if (confirm("Voulez-vous vraiment supprimer ce ticket ?")) {
+            ticketDiv.remove();
+        }
+    }
+
+  
+    document.getElementById('submitTicket').addEventListener('click', function() {
+        const title = document.getElementById('ticketTitle').value;
+        const description = document.getElementById('ticketDescription').value;
+        const author = document.getElementById('ticketAuthor').value || currentUser;
+        const project = document.getElementById('ticketProject').value;
+        const assignedTo = document.getElementById('ticketAssignedTo').value; 
+        const deadline = document.getElementById('ticketDeadline').value;
+        const currentDate = new Date().toISOString().split('T')[0]; 
+
+        if (title && description && author && project && assignedTo) {
+          
+            const ticketDiv = document.createElement('div');
+            ticketDiv.className = 'ticket';
+
+            const ticketTitle = document.createElement('h4');
+            ticketTitle.innerText = title;
+            const ticketDescription = document.createElement('p');
+            ticketDescription.innerText = description;
+            const ticketAuthor = document.createElement('p');
+            ticketAuthor.innerText = "Créé par : " + author;
+            const ticketAssignedTo = document.createElement('p');
+            ticketAssignedTo.innerText = "Attribué à : " + assignedTo;
+            const ticketProject = document.createElement('p');
+            ticketProject.innerText = "Projet : " + project;
+
+            const ticketDate = document.createElement('small');
+            ticketDate.innerText = "Créé le " + getCurrentDateTime();
+            const ticketDeadline = document.createElement('small');
+            ticketDeadline.innerText = deadline ? "Date limite : " + deadline : "Pas de date limite";
+
+            ticketDiv.appendChild(ticketTitle);
+            ticketDiv.appendChild(ticketDescription);
+            ticketDiv.appendChild(ticketAuthor);
+            ticketDiv.appendChild(ticketAssignedTo);
+            ticketDiv.appendChild(ticketProject);
+            ticketDiv.appendChild(ticketDate);
+            ticketDiv.appendChild(ticketDeadline);
+
+            const editDeleteButtons = document.createElement('div');
+            editDeleteButtons.className = 'edit-delete-buttons';
+
+            const editButton = document.createElement('button');
+            editButton.innerText = 'Modifier';
+            editButton.addEventListener('click', function() {
+                editTicket(ticketDiv);
+            });
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Supprimer';
+            deleteButton.addEventListener('click', function() {
+                deleteTicket(ticketDiv);
+            });
+
+            editDeleteButtons.appendChild(editButton);
+            editDeleteButtons.appendChild(deleteButton);
+            ticketDiv.appendChild(editDeleteButtons);
+
+            const moveButtons = document.createElement('div');
+            moveButtons.className = 'move-buttons';
+
+            const moveToLate = document.createElement('button');
+            moveToLate.innerText = 'En retard';
+            moveToLate.addEventListener('click', function() {
+                moveTicket(ticketDiv, 'lateTasks');
+            });
+
+            const moveToCompleted = document.createElement('button');
+            moveToCompleted.innerText = 'Terminés';
+            moveToCompleted.addEventListener('click', function() {
+                moveTicketToCompleted(ticketDiv, title, description, author, project, assignedTo, deadline);
+            });
+
+            moveButtons.appendChild(moveToLate);
+            moveButtons.appendChild(moveToCompleted);
+            ticketDiv.appendChild(moveButtons);
+
+            if (deadline) {
+                if (deadline < currentDate) {
+                    document.getElementById('lateTasks').appendChild(ticketDiv); 
+                } else {
+                    document.getElementById('upcomingTasks').appendChild(ticketDiv);
+                }
+            } else {
+                document.getElementById('upcomingTasks').appendChild(ticketDiv);
+            }
+
+            document.getElementById('ticketTitle').value = '';
+            document.getElementById('ticketDescription').value = '';
+            document.getElementById('ticketAuthor').value = '';
+            document.getElementById('ticketDeadline').value = '';
+            document.getElementById('ticketForm').style.display = 'none';
+
+            alert("Ticket créé avec succès !");
+        } else {
+            alert("Veuillez remplir tous les champs.");
+        }
+    });
+
+    function moveTicketToCompleted(ticketDiv, title, description, author, project, assignedTo, deadline) {
+        document.getElementById('completedTasks').appendChild(ticketDiv);
+
+        const completedDate = getCurrentDateTime();
+        const currentDate = new Date().toISOString().split('T')[0];
+
+        const finishedLate = deadline && deadline < currentDate;
+
+        completedTickets.push({
+            title,
+            description,
+            author,
+            project,
+            assignedTo,
+            deadline,
+            completedDate,
+            finishedLate
+        });
+
+        alert("Ticket déplacé dans 'Terminés' et ajouté à l'historique.");
+    }
+</script>
+
+</body>
+</html>
